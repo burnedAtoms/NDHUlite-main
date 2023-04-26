@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:ndhulite/ui/pages/auth_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -71,6 +72,9 @@ class _HomePageState extends State<MapPage> {
 
   late GoogleMapController _controller;
 
+  Future<void> signUserOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     _controller = controller;
@@ -145,11 +149,11 @@ class _HomePageState extends State<MapPage> {
                 title: Text('Logout'),
                 onTap: () {
                   Navigator.pop(this.context);
-                  FirebaseAuth.instance.signOut().whenComplete(() => Navigator.push(
+                  signUserOut();
+                  Navigator.push(
                     this.context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
-                  ));
-                  
+                    MaterialPageRoute(builder: (context) => AuthPage()),
+                  );
                 }),
           ],
         ),

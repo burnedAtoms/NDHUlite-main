@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'map_page.dart';
 
 class LoginPage extends StatefulWidget {
   //LoginPage({Key? key}) : super(key: key);
@@ -36,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
       );
       // pop the loading circle
       Navigator.pop(context);
-
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);
@@ -58,12 +58,12 @@ class _LoginPageState extends State<LoginPage> {
   // wrong email message popup
   void wrongEmailMessage() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            title: Text('Incorrect Email'),
-          );
-        },
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Incorrect Email'),
+        );
+      },
     );
   }
 
@@ -82,8 +82,11 @@ class _LoginPageState extends State<LoginPage> {
   // redirect to launch url if you forget password
   _launchURL() async {
     Uri url = Uri.parse('https://gms.ndhu.edu.tw/passwd/');
-    if (await launchUrl(url))  {await launchUrl(url);}
-    else {throw 'Could not launch $url';}
+    if (await launchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -95,7 +98,10 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset('lib/images/LOGO_NDHU.Pure_233.png', height: 90,),
+                Image.asset(
+                  'lib/images/LOGO_NDHU.Pure_233.png',
+                  height: 90,
+                ),
                 const Text(
                   "NDHUlite",
                   style: TextStyle(
@@ -104,9 +110,11 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.green,
                   ),
                 ),
-    
-                const SizedBox(height: 25,),
-    
+
+                const SizedBox(
+                  height: 25,
+                ),
+
                 TextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -116,9 +124,11 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.email),
                   ),
                 ),
-    
-                const SizedBox(height: 25,),
-    
+
+                const SizedBox(
+                  height: 25,
+                ),
+
                 TextFormField(
                   controller: passwordController,
                   keyboardType: TextInputType.visiblePassword,
@@ -130,27 +140,31 @@ class _LoginPageState extends State<LoginPage> {
                     suffixIcon: Icon(Icons.remove_red_eye),
                   ),
                 ),
-    
-                const SizedBox(height: 5,),
-    
+
+                const SizedBox(
+                  height: 5,
+                ),
+
                 Row(
-                  mainAxisAlignment:  MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
                         onPressed: _launchURL,
-                        child: const Text("Forget Password?")
-                    )
+                        child: const Text("Forget Password?"))
                   ],
                 ),
-    
-                const SizedBox(height: 25,),
-    
+
+                const SizedBox(
+                  height: 25,
+                ),
+
                 Container(
                   height: 60,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    gradient: const LinearGradient(colors: [Colors.blueGrey, Colors.green]),
+                    gradient: const LinearGradient(
+                        colors: [Colors.blueGrey, Colors.green]),
                   ),
                   child: MaterialButton(
                     onPressed: signUserIn,
@@ -163,9 +177,11 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-    
-                const SizedBox(height: 50,),
-    
+
+                const SizedBox(
+                  height: 50,
+                ),
+
                 // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -193,9 +209,9 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-    
+
                 const SizedBox(height: 50),
-    
+
                 // google sign in button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -208,11 +224,13 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(16),
                         color: Colors.grey[200],
                       ),
-                      child: Image.asset('lib/images/google.png', height: 40,),
+                      child: Image.asset(
+                        'lib/images/google.png',
+                        height: 40,
                       ),
+                    ),
                   ],
                 ),
-    
               ],
             ),
           ),
